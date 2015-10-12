@@ -1,5 +1,14 @@
 (function(){
-  var app = angular.module('gemStore', [ ]);
+  var app = angular.module('gemStore', ['store-products']);
+
+  // use this for connecting to an API or outside datasource
+  // app.controller('StoreController', [ '$http',function($http){
+  //   var store = this;
+  //   store.products = [];
+  //   $http.get('/products.json').success(function(data){
+  //     store.products = data;
+  //   });
+  // }]);
 
   app.controller('StoreController', function(){
     this.products = gems;
@@ -7,49 +16,10 @@
 
   app.controller("ReviewController", function(){
     this.review = {};
-    this.addReview = function(product) {
+    this.addReview = function(product){
       this.review.createdOn = Date.now();
       product.reviews.push(this.review);
       this.review = {};
-    };
-  });
-
-  app.directive("productGallery", function() {
-    return {
-      restrict:"E",
-      templateUrl: "product-gallery.html",
-      controller: function(){
-        this.current = 0;
-        this.setCurrent = function(index){
-          this.current = index || 0;
-        };
-      },
-      controllerAs: "gallery"
-    };
-  });
-
-  app.directive('productTabs', function(){
-    return {
-      restrict: 'E',
-      templateUrl: 'product-tabs.html',
-      controller: function(){
-        this.tab = 1;
-
-        this.setTab = function(setTab) {
-          this.tab = setTab;
-        };
-        this.isSet = function(checkTab){
-          return this.tab === checkTab;
-        };
-      },
-      controllerAs: "tab"
-    };
-  });
-
-  app.directive('productTitle', function(){
-    return {
-      restrict: 'E',
-      templateUrl: 'product-title.html'
     };
   });
 
