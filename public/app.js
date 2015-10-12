@@ -5,20 +5,31 @@
     this.products = gems;
   });
 
-  app.controller('GalleryController', function(){
-    this.current = 0;
-    this.setCurrent = function(newGallery){
-      this.current = newGallery || 0;
-    };
-  });
-
-  app.controller('PanelController', function(){
+  app.controller('TabController', function(){
     this.tab = 1;
+
     this.setTab = function(setTab) {
       this.tab = setTab;
     };
     this.isSet = function(checkTab){
       return this.tab === checkTab;
+    };
+  });
+
+  app.controller('GalleryController', function(){
+    this.current = 0;
+
+    this.setCurrent = function(index){
+      this.current = index;
+    };
+  });
+
+  app.controller("ReviewController", function(){
+    this.review = {};
+    this.addReview = function(product) {
+      this.review.createdOn = Date.now();
+      product.reviews.push(this.review);
+      this.review = {};
     };
   });
 
@@ -40,15 +51,16 @@
       {
         stars: 5,
         body: "I love it",
-        author: "email@email.com"
+        author: "email@email.com",
+        createdOn: 1397490980837
       },
       {
         stars: 1,
         body: "I hate it",
-        author: "hater@email.com"
+        author: "hater@email.com",
+        createdOn: 1397490980837
       }
     ]
-
   }, {
     name: 'Bloodstone',
     description: "Origin of the Bloodstone is unknown, hence its low value. It has a very high shine and 12 sides, however.",
